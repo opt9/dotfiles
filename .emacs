@@ -7,6 +7,7 @@
  '(debug-on-error t)
  '(display-time-mode t)
  '(save-place t nil (saveplace))
+ '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil)
@@ -167,8 +168,8 @@
 (set-frame-parameter nil 'fullscreen 'fullboth)
 ;; (set-frame-parameter nil 'fullscreen 'maximized)
 
-(set-frame-parameter (selected-frame) 'alpha '(85 . 50))
-(add-to-list 'default-frame-alist '(alpha . (85 . 50)))
+;; (set-frame-parameter (selected-frame) 'alpha '(85 . 50))
+;; (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
 (defun toggle-transparency ()
   (interactive)
   (let ((alpha (frame-parameter nil 'alpha)))
@@ -272,3 +273,7 @@
 (setq org-agenda-files (list "~/.org/agenda/work.org"
                              "~/.org/agenda/home.org"
                              "~/.org/agenda/idea.org"))
+
+(setq org-export-backends '(ascii html icalendar latex md odt))
+(setq org-export-with-toc nil)
+(setq org-export-with-author nil)
