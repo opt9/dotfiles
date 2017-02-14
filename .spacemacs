@@ -36,21 +36,37 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
      auto-completion
      better-defaults
+     docker
+     django
      emacs-lisp
      emoji
      erc
+     (ess :variables
+          ess-enable-smart-equals t)
      git
+     github
+     go
+     helm
+     html
+     javascript
      markdown
+     nginx
      org
+     python
+     ruby
+     ruby-on-rails
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
      spell-checking
+     sql
      syntax-checking
+     vagrant
      version-control
+     yaml
+     windows-scripts
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -59,8 +75,9 @@ values."
    dotspacemacs-additional-packages '(
                                       company-emoji
                                       rebecca-theme
-                                      magithub
+                                      ;; magithub
                                       znc
+                                      rainbow-mode
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -109,7 +126,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'emacs
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -144,7 +161,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("DejaVu Sans Mono"
-                               :size 16
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -318,6 +335,7 @@ you should place your code here."
   (setq emoji-cheat-sheet-plus-display-mode t)
   ;; Spell check config
   (setq ispell-dictionary "en_US")
+  (add-hook 'prog-mode-hook 'rainbow-mode)
   ;; magit config
   (setq magit-diff-refine-hunk 'all)
   (setq magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
@@ -343,8 +361,8 @@ you should place your code here."
                                "~/.org/agenda/home.org"
                                "~/.org/agenda/idea.org"))
   (setq org-export-backends '(ascii html icalendar latex md odt))
-  (setq org-export-with-toc nil)
-  (setq org-export-with-author nil)
+  ;; (setq org-export-with-toc nil)
+  ;; (setq org-export-with-author nil)
   ;; Org-Babel config
   (org-babel-do-load-languages
    'org-babel-load-languages '(
@@ -359,6 +377,10 @@ you should place your code here."
                                (sql . t)
                                )
    )
+  ;; ESS config
+  ;; (add-hook 'ess-mode-hook
+  ;;           (lambda ()
+  ;;             (ess-toggle-underscore nil)))
   ;; Emacs Lisp config
   (font-lock-add-keywords 'emacs-lisp-mode
                           '(("(\\(lambda\\)\\>" (0 (prog1 ()
