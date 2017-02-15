@@ -341,6 +341,13 @@ you should place your code here."
   (setq emoji-cheat-sheet-plus-display-mode t)
   ;; Spell check config
   (setq ispell-dictionary "en_US")
+  ;; Man page config
+  (defalias 'man 'woman)
+  (eval-after-load 'woman '(defalias 'man 'woman))
+  (add-hook 'woman-pre-format-hook
+            (lambda ()
+              (set-face-attribute 'woman-italic nil :inherit 'italic :foreground "#ffd700")
+              (set-face-attribute 'woman-bold nil :inherit 'bold :foreground "#a1db00")))
   ;; Programming specific config
   (add-hook 'prog-mode-hook 'rainbow-mode)
   ;; (add-hook 'prog-mode-hook 'nlinum-mode)
