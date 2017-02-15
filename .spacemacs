@@ -38,6 +38,7 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
+     csv
      docker
      django
      emacs-lisp
@@ -51,9 +52,12 @@ values."
      helm
      html
      javascript
+     lua
      markdown
      nginx
+     ;; nlinum
      org
+     pandoc
      python
      ruby
      ruby-on-rails
@@ -65,6 +69,7 @@ values."
      syntax-checking
      vagrant
      version-control
+     vimscript
      yaml
      windows-scripts
      )
@@ -74,6 +79,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       company-emoji
+                                      editorconfig
                                       rebecca-theme
                                       ;; magithub
                                       znc
@@ -126,7 +132,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'emacs
+   dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -277,7 +283,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -308,7 +314,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed
    ))
 
 (defun dotspacemacs/user-init ()
@@ -335,7 +341,11 @@ you should place your code here."
   (setq emoji-cheat-sheet-plus-display-mode t)
   ;; Spell check config
   (setq ispell-dictionary "en_US")
+  ;; Programming specific config
   (add-hook 'prog-mode-hook 'rainbow-mode)
+  ;; (add-hook 'prog-mode-hook 'nlinum-mode)
+  ;; (add-hook 'prog-mode-hook 'linum-relative-mode)
+  ;; (add-hook 'prog-mode-hook 'linum-mode)
   ;; magit config
   (setq magit-diff-refine-hunk 'all)
   (setq magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
@@ -360,7 +370,8 @@ you should place your code here."
   (setq org-agenda-files (list "~/.org/agenda/work.org"
                                "~/.org/agenda/home.org"
                                "~/.org/agenda/idea.org"))
-  (setq org-export-backends '(ascii html icalendar latex md odt))
+  ;; (setq org-export-backends '(ascii html icalendar latex odt))
+  (setq org-export-backends '())
   ;; (setq org-export-with-toc nil)
   ;; (setq org-export-with-author nil)
   ;; Org-Babel config
