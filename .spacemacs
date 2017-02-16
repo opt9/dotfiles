@@ -49,6 +49,7 @@ values."
      git
      github
      go
+     graphviz
      helm
      html
      javascript
@@ -80,6 +81,7 @@ values."
    dotspacemacs-additional-packages '(
                                       company-emoji
                                       editorconfig
+                                      helm-tramp
                                       rebecca-theme
                                       ;; magithub
                                       znc
