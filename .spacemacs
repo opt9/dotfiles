@@ -38,6 +38,7 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
+     common-lisp
      csv
      docker
      django
@@ -79,9 +80,12 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      all-the-icons
+                                      all-the-icons-dired
                                       company-emoji
                                       editorconfig
                                       helm-tramp
+                                      mode-icons
                                       rebecca-theme
                                       ;; magithub
                                       znc
@@ -339,6 +343,21 @@ you should place your code here."
   ;; don't use dialog box
   (setq use-file-dialog nil)
   (setq use-dialog-box nil)
+  ;; Server config
+  (add-hook 'server-switch-hook
+            (lambda ()
+              (when (current-local-map)
+                (use-local-map (copy-keymap (current-local-map))))
+              (when server-buffer-clients
+                (local-set-key (kbd "C-x k") 'server-edit))))
+  ;; Emacs source code directory config
+  (setq source-directory "~/.local/share/emacs-24.5/")
+  ;; Mode icon config
+  (setq mode-icons-change-mode-name nil)
+  (mode-icons-mode)
+  (remove-hook 'helm-mode-hook 'mode-icons-mode)
+  (remove-hook 'helm-minibuffer-set-up-hook 'mode-icons-mode)
+  ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
   ;; Emoji config
   (setq emoji-cheat-sheet-plus-display-mode t)
   ;; Spell check config
@@ -352,18 +371,6 @@ you should place your code here."
               (set-face-attribute 'woman-bold nil :inherit 'bold :foreground "#a1db00")))
   ;; Tramp config
   (setq tramp-default-method "ssh")
-  ;; Programming specific config
-  (add-hook 'prog-mode-hook 'rainbow-mode)
-  ;; (add-hook 'prog-mode-hook 'nlinum-mode)
-  ;; (add-hook 'prog-mode-hook 'linum-relative-mode)
-  ;; (add-hook 'prog-mode-hook 'linum-mode)
-  ;; magit config
-  (setq magit-diff-refine-hunk 'all)
-  (setq magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
-  ;; Magithub config
-  (use-package magithub
-    :after magit
-    :config (magithub-feature-autoinject t))
   ;; w3m config
   (setq browse-url-browser-function 'w3m-browse-url)
   (setq browse-url-new-window-flag t)
@@ -403,12 +410,44 @@ you should place your code here."
   ;; (add-hook 'ess-mode-hook
   ;;           (lambda ()
   ;;             (ess-toggle-underscore nil)))
+  ;; Programming specific config
+  (add-hook 'prog-mode-hook 'rainbow-mode)
+  ;; (add-hook 'prog-mode-hook 'nlinum-mode)
+  ;; (add-hook 'prog-mode-hook 'linum-relative-mode)
+  ;; (add-hook 'prog-mode-hook 'linum-mode)
+  ;; magit config
+  (setq magit-diff-refine-hunk 'all)
+  (setq magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
+  ;; Magithub config
+  (use-package magithub
+    :after magit
+    :config (magithub-feature-autoinject t))
   ;; Emacs Lisp config
   (font-lock-add-keywords 'emacs-lisp-mode
                           '(("(\\(lambda\\)\\>" (0 (prog1 ()
                                                      (compose-region (match-beginning 1)
                                                                      (match-end 1)
                                                                      ?λ))))))
+  ;; Common Lisp config
+  ;; (setq common-lisp-hyperspec-root "http://www.lispworks.com/reference/HyperSpec/")
+  (setq common-lisp-hyperspec-root "file:/usr/share/doc/hyperspec/")
+  ;; (load (expand-file-name "~/.quicklisp/slime-helper.el"))
+  ;; (setq slime-net-coding-system 'utf-8-unix)
+  ;; (setq slime-lisp-mode-in-events-buffer t)
+  ;; (setq slime-outline-mode-in-events-buffer t)
+  ;; (add-to-list 'slime-filename-translations
+  ;;              (slime-create-filename-translator
+  ;;               :machine-instance "gagbits"
+  ;;               :remote-host "gagbits.com"
+  ;;               :username "pi"))
+  (setq inferior-lisp-program "/usr/bin/clisp")
+  ;; (setq slime-lisp-implementations
+  ;;       '((clisp ("/usr/bin/clisp" "-q -I"))
+  ;;         (sbcl ("/usr/bin/sbcl") :coding-system utf-8-unix)))
+  ;; (setq slime-default-lisp 'clisp)
+  ;; (slime-setup '(slime-fancy slime-tramp))
+  ;; (slime-connect "localhost" 4005)
+  ;; (global-set-key "\C-c\C-]" 'slime-close-all-parens-in-sexp)
   ;; Perl config
   (defalias 'perl-mode 'cperl-mode)
   (add-to-list 'auto-mode-alist '("\\.plugin$" . perl-mode))
