@@ -38,6 +38,7 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
+     clojure
      common-lisp
      csv
      docker
@@ -53,6 +54,7 @@ values."
      graphviz
      helm
      html
+     ipython-notebook
      javascript
      lua
      markdown
@@ -63,6 +65,7 @@ values."
      python
      ruby
      ruby-on-rails
+     scheme
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
