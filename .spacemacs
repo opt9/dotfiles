@@ -43,6 +43,7 @@ values."
      csv
      docker
      django
+     elixir
      emacs-lisp
      emoji
      erc
@@ -52,6 +53,7 @@ values."
      github
      go
      graphviz
+     haskell
      helm
      html
      ipython-notebook
@@ -343,6 +345,8 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq global-auto-complete-mode t)
+  (global-prettify-symbols-mode 1)
+  ;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   ;; don't use dialog box
   (setq use-file-dialog nil)
   (setq use-dialog-box nil)
@@ -355,6 +359,7 @@ you should place your code here."
                 (local-set-key (kbd "C-x k") 'server-edit))))
   ;; Emacs source code directory config
   (setq source-directory "~/.local/share/emacs-24.5/")
+  (setq find-function-C-source-directory (concat source-directory "/src"))
   ;; Mode icon config
   (setq mode-icons-change-mode-name nil)
   (mode-icons-mode)
@@ -379,7 +384,7 @@ you should place your code here."
   (setq browse-url-new-window-flag t)
   (setq w3m-use-cookies t)
   (setq w3m-do-cleanup-temp-files t)
-  (setq w3m-default-display-inline-images nil)
+  (setq w3m-default-display-inline-images t)
   ;; ERC config
   (load "~/.ercpass")
   (erc-services-mode 1)
@@ -426,11 +431,28 @@ you should place your code here."
     :after magit
     :config (magithub-feature-autoinject t))
   ;; Emacs Lisp config
-  (font-lock-add-keywords 'emacs-lisp-mode
-                          '(("(\\(lambda\\)\\>" (0 (prog1 ()
-                                                     (compose-region (match-beginning 1)
-                                                                     (match-end 1)
-                                                                     ?λ))))))
+  ;; (font-lock-add-keywords 'emacs-lisp-mode
+  ;;                         '(("(\\(lambda\\)\\>" (0 (prog1 ()
+  ;;                                                    (compose-region (match-beginning 1)
+  ;;                                                                    (match-end 1)
+  ;;                                                                    ?λ))))))
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (mapc (lambda (pair) (push pair prettify-symbols-alist))
+                    '(("lambda" . 955) ; λ
+                      ("<-" . 8592)    ; ←
+                      ("->" . 8594)    ; →
+                      ("<=" . 8656)    ; ⇐
+                      ("=>" . 8658)    ; ⇒
+                      ("map" . 8614)   ; ↦
+                      (">=" . 8805)    ; ≥
+                      ("and" . 8743)   ; ∧
+                      ("or" . 8744)    ; ∨
+                      ("not" . 172)    ; ¬
+                      ;; ("eql" . 8801)   ; ≡
+                      ;; ("null" . 8709)  ; ∅
+                      ;; ("error" . 9888) ; ⚠
+                      ))))
   ;; Common Lisp config
   ;; (setq common-lisp-hyperspec-root "http://www.lispworks.com/reference/HyperSpec/")
   (setq common-lisp-hyperspec-root "file:/usr/share/doc/hyperspec/")
@@ -454,6 +476,35 @@ you should place your code here."
   ;; Perl config
   (defalias 'perl-mode 'cperl-mode)
   (add-to-list 'auto-mode-alist '("\\.plugin$" . perl-mode))
+  ;; Python config
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (mapc (lambda (pair) (push pair prettify-symbols-alist))
+                    '(;; Syntax
+                      ("def" .      #x2131)
+                      ("not" .      #x2757)
+                      ("in" .       #x2208)
+                      ("not in" .   #x2209)
+                      ("return" .   #x27fc)
+                      ("yield" .    #x27fb)
+                      ("for" .      #x2200)
+                      ;;
+                      (">=" .         8805)    ; ≥
+                      ;; Base Types
+                      ;; ("int" .      #x2124)
+                      ;; ("float" .    #x211d)
+                      ;; ("str" .      #x1d54a)
+                      ;; ("True" .     #x1d54b)
+                      ("False" .    #x1d53d)
+                      ))))
+  ;;            ;; Mypy
+  ;;            ("Dict" .     #x1d507)
+  ;;            ("List" .     #x2112)
+  ;;            ("Tuple" .    #x2a02)
+  ;;            ("Set" .      #x2126)
+  ;;            ("Iterable" . #x1d50a)
+  ;;            ("Any" .      #x2754)
+  ;;            ("Union" .    #x22c3)))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
