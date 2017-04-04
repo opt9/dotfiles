@@ -16,13 +16,11 @@ runtime! debian.vim
 
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
-if has("syntax")
-  syntax on
-endif
+syntax on
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
-"set background=dark
+set background=dark
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
@@ -43,6 +41,7 @@ set showmatch		" Show matching brackets.
 set ignorecase		" Do case insensitive matching
 set smartcase		" Do smart case matching
 set incsearch		" Incremental search
+set hlsearch		" Highlight search
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden		" Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
@@ -52,8 +51,57 @@ if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
-set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
-set laststatus=2
-set t_Co=256
+" Set color theme
+"colorscheme pablo
+colorscheme industry
 
-colorscheme pablo
+" Remap Leader key to <space>
+let mapleader = "\<Space>"
+
+" Easier split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable Pathogen plugin manager
+execute pathogen#infect()
+
+" Directory tree config
+map <Leader>d :NERDTreeToggle<CR>
+
+" Class, Method, Function tags config
+nmap <Leader>t :TagbarToggle<CR>
+
+" Type <Space>o to open a new file
+nnoremap <Leader>o :CtrlP<CR>
+" Type <Space>w to save file
+nnoremap <Leader>w :w<CR>
+
+" Fuzzy search config
+map <silent> <Leader>p :CtrlP()<CR>
+noremap <Leader>b<space> :CtrlPBuffer<CR>
+let g:ctrlp_custom_ignore = '\v[\/]dist$'
+
+" GitGutter config
+let g:gitgutter_sign_column_always = 0
+
+" EditorConfig config
+let g:EditorConfig_exclude_patterns = [ 'fugitive://.*', 'scp://.*' ]
+let g:EditorConfig_exec_path = '/usr/bin/editorconfig'
+
+" Syntax check config
+map <Leader>s :SyntasticToggleMode<CR>
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Auto complete config
+let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabMappingTabLiteral = '<Tab>'
