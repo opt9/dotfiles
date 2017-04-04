@@ -52,8 +52,8 @@ if filereadable("/etc/vim/vimrc.local")
 endif
 
 " Set color theme
-"colorscheme pablo
-colorscheme industry
+colorscheme pablo
+"colorscheme industry
 
 " Remap Leader key to <space>
 let mapleader = "\<Space>"
