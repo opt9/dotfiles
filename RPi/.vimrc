@@ -105,3 +105,8 @@ let g:syntastic_check_on_wq = 0
 " Auto complete config
 let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabMappingTabLiteral = '<Tab>'
+
+" Indent line config
+let g:indentLine_char = '│'
+let g:indentLine_leadingSpaceChar = '·'
+"let g:indentLine_leadingSpaceEnabled = 1
