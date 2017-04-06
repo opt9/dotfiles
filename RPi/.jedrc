@@ -182,9 +182,9 @@ Case_Sensitive_Filenames = 0;
 META_CHAR	= -1;	% All chars with hi bit set will self insert
 
 #ifdef IBMPC_SYSTEM
-%  DISPLAY_EIGHT_BIT = 128;
+   DISPLAY_EIGHT_BIT = 128;
 #else
-%  DISPLAY_EIGHT_BIT = 160; % Other systems assume ISO Latin 1
+   DISPLAY_EIGHT_BIT = 160; % Other systems assume ISO Latin 1
 #endif
 
 % Color Settings
@@ -192,7 +192,8 @@ META_CHAR	= -1;	% All chars with hi bit set will self insert
 % schemes.
 %set_color_scheme ("black3");
 %set_color_scheme ("blue2");
-%set_color_scheme("cbrief-console");
+set_color_scheme("green");
+set_color_scheme("yellow");
 
 #ifdef UNIX
 %
