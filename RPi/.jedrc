@@ -40,7 +40,7 @@ if (BATCH == 0)
 % the menubars.  For example, emacs uses ESC-f to move by words.  The 
 % next line causes the keys to activate the menus.  Comment this out
 % to preserve the emulation.
-   enable_menu_keys ();
+%  enable_menu_keys ();
 
 % If you use jed inside an XTerminal, you can use the mouse to access the 
 % menus and move the cursor by uncommenting the next line:
@@ -244,7 +244,7 @@ define dired_hook ()
 
 %% ========================= defined by daoge  =============================
 () = evalfile("emacs");
-enable_top_status_line(0);
+enable_top_status_line(1);
 auto_compression_mode(1);
 
 unsetkey("\ef");
