@@ -102,7 +102,7 @@ if (BATCH == 0)
                         % the colors.
 #endif
 No_Backups = 1;         % If non-zero, backup files will not be created.
-Startup_With_File = 1;  % if greater then zero, force JED to prompt for a file
+Startup_With_File = -1; % if greater then zero, force JED to prompt for a file
                         %   if none is specified on the command line.  If 
                         %   negative, inhibit startup message.
 DISPLAY_TIME    = 1;    % non-zero enables the time to be displayed on 
@@ -479,3 +479,6 @@ setkey("duplicate_line", "\ecd");
 setkey("ctags_find", "^X;");
 setkey("ctags_backward", "^X-");
 setkey("ctags_forward", "^X=");
+
+% Add perl extension for Nikto
+add_mode_for_extension("perl", "plugin");
