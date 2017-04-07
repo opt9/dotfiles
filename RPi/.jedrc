@@ -129,10 +129,10 @@ HORIZONTAL_PAN	= 20;	% if zero, no automatic panning.  If positive, only
 
 BLINK		= 1;	% if non zero, blink matching parenthesis
 TAB_DEFAULT	= 4;	% Tab size  (also try edit_tab_stops)
-USE_TABS	= 0;	% Use tabs when generating whitespace.
+USE_TABS	= 1;	% Use tabs when generating whitespace.
 TAB         = 4;
 
-Tab_Always_Inserts_Tab = 0; % Set this to 1 if you want the tab key to insert
+Tab_Always_Inserts_Tab = 1; % Set this to 1 if you want the tab key to insert
                             % tabs.
 _Jed_Default_Color_Scheme = "black3";
 WRAP_DEFAULT	= 2000;	% wrap column
@@ -245,234 +245,234 @@ define dired_hook ()
 
 %% ========================= defined by daoge  =============================
 () = evalfile("emacs");
-enable_top_status_line(1);
+% enable_top_status_line(1);
 auto_compression_mode(1);
 
-unsetkey("\ef");
-setkey("skip_word", "\ef");
-unsetkey("\eb");
-setkey("bskip_word", "\eb");
-unsetkey("\ee");
-setkey("eol_cmd", "\ee");
-unsetkey("\ea");
-setkey("beg_of_line", "\ea");
-unsetkey("\ei");
-unsetkey("\es");
-unsetkey("\eu");
-unsetkey("^H");
-unsetkey("`");
-setkey("self_insert_cmd", "`");
+% unsetkey("\ef");
+% setkey("skip_word", "\ef");
+% unsetkey("\eb");
+% setkey("bskip_word", "\eb");
+% unsetkey("\ee");
+% setkey("eol_cmd", "\ee");
+% unsetkey("\ea");
+% setkey("beg_of_line", "\ea");
+% unsetkey("\ei");
+% unsetkey("\es");
+% unsetkey("\eu");
+% unsetkey("^H");
+% unsetkey("`");
+% setkey("self_insert_cmd", "`");
 
 
-unsetkey("^K");
-setkey("push_spot();bol();push_mark();down_1();yp_copy_region_as_kill();pop_spot();delete_line();", "^K");
-%setkey("bol();if(eolp()==0)emacs_yp_kill_line();emacs_yp_kill_line();", "^K");
-unsetkey("^J");
-setkey("emacs_yp_kill_line();", "^J");
-unsetkey("^V");
-setkey("yp_yank();", "^V");
-setkey("beg_of_line", "\eOH");
-setkey("eol_cmd", "\eOF");
-
-
-
-setkey("bufed()", "^Z");
-setkey("dired()", "^X^Z");
-setkey("smart_set_mark_cmd", "^Q");
-setkey("one_window", "\el");
+% unsetkey("^K");
+% setkey("push_spot();bol();push_mark();down_1();yp_copy_region_as_kill();pop_spot();delete_line();", "^K");
+% %setkey("bol();if(eolp()==0)emacs_yp_kill_line();emacs_yp_kill_line();", "^K");
+% unsetkey("^J");
+% setkey("emacs_yp_kill_line();", "^J");
+% unsetkey("^V");
+% setkey("yp_yank();", "^V");
+% setkey("beg_of_line", "\eOH");
+% setkey("eol_cmd", "\eOF");
 
 
 
-define backspaces ()
-{
-    variable n;
-    n = TAB_DEFAULT;
-    loop (n) {
-        n--;
-		if (what_column() - 1 > 0) call("backward_delete_char_untabify");
-    }
-}
-setkey ("backspaces()", "^H"); 
+% setkey("bufed()", "^Z");
+% setkey("dired()", "^X^Z");
+% setkey("smart_set_mark_cmd", "^Q");
+% setkey("one_window", "\el");
 
-define my_indent_region_or_line(dir)
-{
-   variable col = 0;  
-   variable end_block = 0;
+
+
+% define backspaces ()
+% {
+%     variable n;
+%     n = TAB_DEFAULT;
+%     loop (n) {
+%         n--;
+% 		if (what_column() - 1 > 0) call("backward_delete_char_untabify");
+%     }
+% }
+% setkey ("backspaces()", "^H"); 
+
+% define my_indent_region_or_line(dir)
+% {
+%    variable col = 0;  
+%    variable end_block = 0;
    
    
-   !if(is_visible_mark())
-	 {
-   bol_skip_white();
-   col = what_column() - 1;
+%    !if(is_visible_mark())
+% 	 {
+%    bol_skip_white();
+%    col = what_column() - 1;
 	 
-   bol_trim ();
-   whitespace( col + dir * TAB_DEFAULT );
-    return;
-     }
-   % narrow() doesnot work, as indent_line() needs the context!
-   check_region(0);                  % make sure the mark comes first
-   variable end_line = what_line();
-   dupmark();
-   pop_mark_1(); % go there
-   loop (end_line - what_line() + 1)
-     {
-   bol_skip_white();
-   col = what_column() - 1;
+%    bol_trim ();
+%    whitespace( col + dir * TAB_DEFAULT );
+%     return;
+%      }
+%    % narrow() doesnot work, as indent_line() needs the context!
+%    check_region(0);                  % make sure the mark comes first
+%    variable end_line = what_line();
+%    dupmark();
+%    pop_mark_1(); % go there
+%    loop (end_line - what_line() + 1)
+%      {
+%    bol_skip_white();
+%    col = what_column() - 1;
      
-   bol_trim ();
-   whitespace( col + dir * TAB_DEFAULT );
-    go_down_1();
-     }
-   push_spot();
-   pop_mark_1();
-   push_visible_mark();
-   pop_spot();
-   go_up_1();
-}
+%    bol_trim ();
+%    whitespace( col + dir * TAB_DEFAULT );
+%     go_down_1();
+%      }
+%    push_spot();
+%    pop_mark_1();
+%    push_visible_mark();
+%    pop_spot();
+%    go_up_1();
+% }
 
-setkey ("my_indent_region_or_line(1)", "^I"); 
-setkey ("my_indent_region_or_line(-1)", "^U"); 
-setkey ("insert_char('\t')", "\ei");
-setkey ("my_indent_region_or_line(1)", "^]"); 
-%setkey ("my_indent_region_or_line(-1)", "^("); 
-%
-% Switch to previous or next buffer.
-%   This code originated in ide_next_buffer() in ide.sl.
-%
-define next_buffer (previous)
-{
-    variable n, buf;
-    n = buffer_list (); % get the buffers on the stack
-    if (previous)
-    {
-        _stk_reverse (n-1);
-    }
-    loop (n) {
-        buf = ();
-        n--;
-        % Skip *scratch* and other buffers that are not of interest.
-        if ((buf[0] == '*') or (buf[0] == ' '))
-        {
-            continue;
-        }
-        sw2buf (buf);
-        _pop_n (n);
-        return;
-    }
-}
-
-
-% Bind Alt-. and Alt-, (Meta-period and Meta-comma) to next_buffer().
-setkey ("next_buffer (0)", "\eq");
-%setkey ("next_buffer (1)", "\ea");
+% setkey ("my_indent_region_or_line(1)", "^I"); 
+% setkey ("my_indent_region_or_line(-1)", "^U"); 
+% setkey ("insert_char('\t')", "\ei");
+% setkey ("my_indent_region_or_line(1)", "^]"); 
+% %setkey ("my_indent_region_or_line(-1)", "^("); 
+% %
+% % Switch to previous or next buffer.
+% %   This code originated in ide_next_buffer() in ide.sl.
+% %
+% define next_buffer (previous)
+% {
+%     variable n, buf;
+%     n = buffer_list (); % get the buffers on the stack
+%     if (previous)
+%     {
+%         _stk_reverse (n-1);
+%     }
+%     loop (n) {
+%         buf = ();
+%         n--;
+%         % Skip *scratch* and other buffers that are not of interest.
+%         if ((buf[0] == '*') or (buf[0] == ' '))
+%         {
+%             continue;
+%         }
+%         sw2buf (buf);
+%         _pop_n (n);
+%         return;
+%     }
+% }
 
 
-%% ====================================
-autoload("get_word", "txtutils");
-define search_current_word(direction)
-{
-    variable word;
-    variable mark;
-    variable result;
-    variable s1;
-    mark = create_user_mark();
-    skip_word();
-    bskip_word();
-    word = get_word();
-    if (direction == 1)
-    {
-        while (1)
-        {
-            go_right_1();
-            result = fsearch(word);
-            if (result == 0)
-            {
-                break;
-            }
-            % Search again if the word is a substring of a longer word.
-            s1 = get_word();
-            !if (strcmp(s1, word))
-            {
-                break;
-            }
-        }
-    }
-    else
-    {
-        while (1)
-        {
-            result = bsearch(word);
-            if (result == 0)
-            {
-                break;
-            }
-            % Search again if the word is a substring of a longer word.
-            s1 = get_word();
-            !if (strcmp(s1, word))
-            {
-                break;
-            }
-        }
-    }
-    if (result == 0)
-    {
-        goto_user_mark(mark);
-        message(word + " not found");
-    }
-}
+% % Bind Alt-. and Alt-, (Meta-period and Meta-comma) to next_buffer().
+% setkey ("next_buffer (0)", "\eq");
+% %setkey ("next_buffer (1)", "\ea");
 
-% Bind to Alt-z+Alt-comma (alt-z then alt-comma) and Alt-z+Alt-period.
-setkey ("search_current_word(-1)", "\e&");
-setkey ("search_current_word(1)", "\e*");
-define_word("_A-Za-z0-9");
 
-%% ====================================
-autoload("yp_copy_region_as_kill", "yankpop");
-autoload("mark_word", "txtutils");
+% %% ====================================
+% autoload("get_word", "txtutils");
+% define search_current_word(direction)
+% {
+%     variable word;
+%     variable mark;
+%     variable result;
+%     variable s1;
+%     mark = create_user_mark();
+%     skip_word();
+%     bskip_word();
+%     word = get_word();
+%     if (direction == 1)
+%     {
+%         while (1)
+%         {
+%             go_right_1();
+%             result = fsearch(word);
+%             if (result == 0)
+%             {
+%                 break;
+%             }
+%             % Search again if the word is a substring of a longer word.
+%             s1 = get_word();
+%             !if (strcmp(s1, word))
+%             {
+%                 break;
+%             }
+%         }
+%     }
+%     else
+%     {
+%         while (1)
+%         {
+%             result = bsearch(word);
+%             if (result == 0)
+%             {
+%                 break;
+%             }
+%             % Search again if the word is a substring of a longer word.
+%             s1 = get_word();
+%             !if (strcmp(s1, word))
+%             {
+%                 break;
+%             }
+%         }
+%     }
+%     if (result == 0)
+%     {
+%         goto_user_mark(mark);
+%         message(word + " not found");
+%     }
+% }
 
-define copy_word_as_kill()
-{
-    variable s1;
-    push_spot();
-    mark_word();
-    () = dupmark();
-    s1 = bufsubstr();
-    yp_copy_region_as_kill();
-    pop_spot();
-    message("\"" + s1 + "\" copied to kill ring");
-}
+% % Bind to Alt-z+Alt-comma (alt-z then alt-comma) and Alt-z+Alt-period.
+% setkey ("search_current_word(-1)", "\e&");
+% setkey ("search_current_word(1)", "\e*");
+% define_word("_A-Za-z0-9");
 
-define copy_line_as_kill()
-{
-    variable s1;
-    push_spot();
-    bol();
-    set_mark_cmd();
-    down(1);
-    yp_copy_region_as_kill();
-    pop_spot();
-    message("line copied to kill ring");
-}
+% %% ====================================
+% autoload("yp_copy_region_as_kill", "yankpop");
+% autoload("mark_word", "txtutils");
 
-define duplicate_line()
-{
-    variable col;
-    push_spot();
-    col = what_column();
-    bol();
-    push_mark();
-    down_1();
-    yp_copy_region_as_kill();
-    yp_yank();
-    pop_spot();
-    down_1();
-    goto_column(col);
-}
+% define copy_word_as_kill()
+% {
+%     variable s1;
+%     push_spot();
+%     mark_word();
+%     () = dupmark();
+%     s1 = bufsubstr();
+%     yp_copy_region_as_kill();
+%     pop_spot();
+%     message("\"" + s1 + "\" copied to kill ring");
+% }
 
-unsetkey("\ec");
-setkey ("copy_word_as_kill()", "\ecw");
-setkey ("copy_line_as_kill()", "\ecl");
-setkey("duplicate_line", "\ecd");
+% define copy_line_as_kill()
+% {
+%     variable s1;
+%     push_spot();
+%     bol();
+%     set_mark_cmd();
+%     down(1);
+%     yp_copy_region_as_kill();
+%     pop_spot();
+%     message("line copied to kill ring");
+% }
+
+% define duplicate_line()
+% {
+%     variable col;
+%     push_spot();
+%     col = what_column();
+%     bol();
+%     push_mark();
+%     down_1();
+%     yp_copy_region_as_kill();
+%     yp_yank();
+%     pop_spot();
+%     down_1();
+%     goto_column(col);
+% }
+
+% unsetkey("\ec");
+% setkey ("copy_word_as_kill()", "\ecw");
+% setkey ("copy_line_as_kill()", "\ecl");
+% setkey("duplicate_line", "\ecd");
 
 %---------------------------------------------------------------------------
 % Ctags config
@@ -483,3 +483,8 @@ setkey("ctags_forward", "^X=");
 
 % Add perl extension for Nikto
 add_mode_for_extension("perl", "plugin");
+
+% Add bash extension
+add_mode_for_extension("sh", "bash_aliases");
+add_mode_for_extension("sh", "bashrc");
+add_mode_for_extension("sh", "bash_logout");
