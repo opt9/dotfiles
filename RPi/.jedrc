@@ -245,7 +245,7 @@ define dired_hook ()
 
 %% ========================= defined by daoge  =============================
 () = evalfile("emacs");
-% enable_top_status_line(1);
+enable_top_status_line(0);
 auto_compression_mode(1);
 
 % unsetkey("\ef");
