@@ -8,7 +8,7 @@ alias mg='mg -n'
 # Tmux management
 alias tl='tmux list-sessions'
 alias ts='tmux new -s'
-alias ta='tmux attach'
+alias ta='tmux attach -t'
 
 # Package management
 alias pkgsearch='apt-cache search'
@@ -29,7 +29,7 @@ alias sshbot='for h in `sudo iptables -S fail2ban-ssh | awk '"'"'{ print $4 }'"'
 alias badlog='for h in `sudo lastb -i | awk '"'"'{ print $3 }'"'"' | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq`; do aswhois $h; done'
 
 # Weather
-alias weather='curl wttr.in/seoul'
+alias weather='curl wttr.in/seoul?lang=ko'
 alias moon='curl wttr.in/moon'
 
 # Editor config
