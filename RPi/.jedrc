@@ -129,10 +129,10 @@ HORIZONTAL_PAN	= 20;	% if zero, no automatic panning.  If positive, only
 
 BLINK		= 1;	% if non zero, blink matching parenthesis
 TAB_DEFAULT	= 4;	% Tab size  (also try edit_tab_stops)
-USE_TABS	= 1;	% Use tabs when generating whitespace.
+USE_TABS	= 0;	% Use tabs when generating whitespace.
 TAB         = 4;
 
-Tab_Always_Inserts_Tab = 1; % Set this to 1 if you want the tab key to insert
+Tab_Always_Inserts_Tab = 0; % Set this to 1 if you want the tab key to insert
                             % tabs.
 _Jed_Default_Color_Scheme = "black3";
 WRAP_DEFAULT	= 2000;	% wrap column
@@ -486,5 +486,6 @@ add_mode_for_extension("perl", "plugin");
 
 % Add bash extension
 add_mode_for_extension("sh", "bash_aliases");
+add_mode_for_extension("sh", "bash_functions");
 add_mode_for_extension("sh", "bashrc");
 add_mode_for_extension("sh", "bash_logout");
