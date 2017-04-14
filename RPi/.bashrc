@@ -47,6 +47,11 @@ if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
+# Git completion
+if [ -f ~/.local/share/git/git-completion.bash ]; then
+    . ~/.local/share/git/git-completion.bash
+fi
+
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -125,3 +130,9 @@ fi
 
 # added by travis gem
 [ -f /home/pi/.travis/travis.sh ] && source /home/pi/.travis/travis.sh
+
+# Git prompt config
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM='auto'
