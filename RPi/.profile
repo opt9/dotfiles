@@ -56,5 +56,5 @@ export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
 export MANPAGER='less -s -M +Gg'
 
 # Editor config
-export EDITOR=/usr/bin/mg
-export VISUAL=/usr/bin/mg
+export EDITOR=/usr/bin/jed
+export VISUAL=/usr/bin/jed
