@@ -33,10 +33,11 @@ alias weather='curl wttr.in/seoul?lang=ko'
 alias moon='curl wttr.in/moon'
 
 # Editor config
-alias emacs='jmacs'
-alias editor='mg -n'
-alias vi='mg -n'
-alias view='mg -n -f toggle-read-only'
+alias emacs='jed'
+#alias editor='mg -n'
+alias editor='jed'
+#alias vi='mg -n'
+#alias view='mg -n -f toggle-read-only'
 
 # Git convenient
 alias ga='git add --all'
