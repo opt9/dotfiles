@@ -511,6 +511,9 @@ define trim_trailing_whitespace()
 add_to_hook("_jed_save_buffer_before_hooks", &trim_trailing_whitespace);
 
 
+% Tab tweak
+%setkey("self_insert_cmd", "^I");
+
 %---------------------------------------------------------------------------
 % Ctags config
 %---------------------------------------------------------------------------
