@@ -238,6 +238,7 @@ define global_mode_hook (hook_name)
 {
    % if (hook_name != "c_mode_hook")
    %   local_setkey ("self_insert_cmd", "\t");
+    local_setkey ("self_insert_cmd", "\t");
 }
 
 define dired_hook ()
@@ -246,10 +247,31 @@ define dired_hook ()
    %local_setkey ("dired_kill_line", "^K");
 }
 
+define text_mode_hook (mode)
+{
+    local_setkey ("indent_line", "\t");
+}
+
+public define global_mode_hook (hook_name)
+{
+    local_setkey ("insert_simulated_tab", "\t");
+}
+
+public define insert_simulated_tab ()
+{
+    insert_spaces (TAB - (what_column () - 1) mod TAB);
+}
+
+% public define global_mode_hook (hook_name)
+% {
+%     set_line_number_mode (1);
+% }
 
 () = evalfile("emacs");
 enable_top_status_line(0);
 auto_compression_mode(1);
+setkey ("self_insert_cmd", "\t");
+LINENUMBERS = 2;    % show line numbers and column numbers on the status bar
 
 % unsetkey("\ef");
 % setkey("skip_word", "\ef");
@@ -286,16 +308,16 @@ auto_compression_mode(1);
 
 
 
-% define backspaces ()
-% {
-%     variable n;
-%     n = TAB_DEFAULT;
-%     loop (n) {
-%         n--;
-% 		if (what_column() - 1 > 0) call("backward_delete_char_untabify");
-%     }
-% }
-% setkey ("backspaces()", "^H");
+define backspaces ()
+{
+    variable n;
+    n = TAB_DEFAULT;
+    loop (n) {
+        n--;
+		if (what_column() - 1 > 0) call("backward_delete_char_untabify");
+    }
+}
+setkey ("backspaces()", "^?");
 
 % define my_indent_region_or_line(dir)
 % {
