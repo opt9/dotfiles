@@ -196,7 +196,8 @@ META_CHAR	= -1;	% All chars with hi bit set will self insert
 % schemes.
 %set_color_scheme ("black3");
 %set_color_scheme ("blue2");
-set_color_scheme("green");
+set_color_scheme("amber");
+%set_color_scheme("green");
 set_color_scheme("yellow");
 
 #ifdef UNIX
