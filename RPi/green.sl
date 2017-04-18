@@ -63,7 +63,7 @@ set_color ("cursor",	z, G);
 set_color ("cursorovr",	z, R);
 
 %% The following have been automatically generated:
-set_color("linenum",	G, g);
+set_color("linenum",	g, $2);
 set_color("trailing_whitespace", "black", "brightcyan");
 set_color("tab", "black", "brightcyan");
 set_color("url", 		B, $2);
