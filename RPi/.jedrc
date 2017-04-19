@@ -269,7 +269,7 @@ public define insert_simulated_tab ()
 % }
 
 () = evalfile("emacs");
-enable_top_status_line(0);
+enable_top_status_line(1);
 auto_compression_mode(1);
 setkey ("self_insert_cmd", "\t");
 LINENUMBERS = 2;    % show line numbers and column numbers on the status bar
@@ -309,16 +309,16 @@ LINENUMBERS = 2;    % show line numbers and column numbers on the status bar
 
 
 
-define backspaces ()
-{
-    variable n;
-    n = TAB_DEFAULT;
-    loop (n) {
-        n--;
-		if (what_column() - 1 > 0) call("backward_delete_char_untabify");
-    }
-}
-setkey ("backspaces()", "^?");
+% define backspaces ()
+% {
+%     variable n;
+%     n = TAB_DEFAULT;
+%     loop (n) {
+%         n--;
+% 		if (what_column() - 1 > 0) call("backward_delete_char_untabify");
+%     }
+% }
+% setkey ("backspaces()", "^?");
 
 % define my_indent_region_or_line(dir)
 % {
