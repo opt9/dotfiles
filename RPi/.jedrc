@@ -320,44 +320,45 @@ LINENUMBERS = 2;    % show line numbers and column numbers on the status bar
 % }
 % setkey ("backspaces()", "^?");
 
-% define my_indent_region_or_line(dir)
-% {
-%    variable col = 0;
-%    variable end_block = 0;
+define my_indent_region_or_line(dir)
+{
+   variable col = 0;
+   variable end_block = 0;
 
 
-%    !if(is_visible_mark())
-% 	 {
-%    bol_skip_white();
-%    col = what_column() - 1;
+   !if(is_visible_mark())
+	 {
+   bol_skip_white();
+   col = what_column() - 1;
 
-%    bol_trim ();
-%    whitespace( col + dir * TAB_DEFAULT );
-%     return;
-%      }
-%    % narrow() doesnot work, as indent_line() needs the context!
-%    check_region(0);                  % make sure the mark comes first
-%    variable end_line = what_line();
-%    dupmark();
-%    pop_mark_1(); % go there
-%    loop (end_line - what_line() + 1)
-%      {
-%    bol_skip_white();
-%    col = what_column() - 1;
+   bol_trim ();
+   whitespace( col + dir * TAB_DEFAULT );
+    return;
+     }
+   % narrow() doesnot work, as indent_line() needs the context!
+   check_region(0);                  % make sure the mark comes first
+   variable end_line = what_line();
+   dupmark();
+   pop_mark_1(); % go there
+   loop (end_line - what_line() + 1)
+     {
+   bol_skip_white();
+   col = what_column() - 1;
 
-%    bol_trim ();
-%    whitespace( col + dir * TAB_DEFAULT );
-%     go_down_1();
-%      }
-%    push_spot();
-%    pop_mark_1();
-%    push_visible_mark();
-%    pop_spot();
-%    go_up_1();
-% }
+   bol_trim ();
+   whitespace( col + dir * TAB_DEFAULT );
+    go_down_1();
+     }
+   push_spot();
+   pop_mark_1();
+   push_visible_mark();
+   pop_spot();
+   go_up_1();
+}
 
-% setkey ("my_indent_region_or_line(1)", "^I");
+setkey ("my_indent_region_or_line(1)", "^I");
 % setkey ("my_indent_region_or_line(-1)", "^U");
+setkey ("my_indent_region_or_line(-1)", "\e[Z");
 % setkey ("insert_char('\t')", "\ei");
 % setkey ("my_indent_region_or_line(1)", "^]");
 % %setkey ("my_indent_region_or_line(-1)", "^(");
