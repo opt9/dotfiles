@@ -362,144 +362,146 @@ setkey ("my_indent_region_or_line(-1)", "\e[Z");
 % setkey ("insert_char('\t')", "\ei");
 % setkey ("my_indent_region_or_line(1)", "^]");
 % %setkey ("my_indent_region_or_line(-1)", "^(");
-% %
-% % Switch to previous or next buffer.
-% %   This code originated in ide_next_buffer() in ide.sl.
-% %
-% define next_buffer (previous)
-% {
-%     variable n, buf;
-%     n = buffer_list (); % get the buffers on the stack
-%     if (previous)
-%     {
-%         _stk_reverse (n-1);
-%     }
-%     loop (n) {
-%         buf = ();
-%         n--;
-%         % Skip *scratch* and other buffers that are not of interest.
-%         if ((buf[0] == '*') or (buf[0] == ' '))
-%         {
-%             continue;
-%         }
-%         sw2buf (buf);
-%         _pop_n (n);
-%         return;
-%     }
-% }
+%
+% Switch to previous or next buffer.
+%   This code originated in ide_next_buffer() in ide.sl.
+%
+define next_buffer (previous)
+{
+    variable n, buf;
+    n = buffer_list (); % get the buffers on the stack
+    if (previous)
+    {
+        _stk_reverse (n-1);
+    }
+    loop (n) {
+        buf = ();
+        n--;
+        % Skip *scratch* and other buffers that are not of interest.
+        if ((buf[0] == '*') or (buf[0] == ' '))
+        {
+            continue;
+        }
+        sw2buf (buf);
+        _pop_n (n);
+        return;
+    }
+}
 
 
 % % Bind Alt-. and Alt-, (Meta-period and Meta-comma) to next_buffer().
 % setkey ("next_buffer (0)", "\eq");
-% %setkey ("next_buffer (1)", "\ea");
-
+% setkey ("next_buffer (1)", "\ea");
+% Bind Ctrl- and Ctrl-] to next_buffer().
+setkey ("next_buffer (0)", "^X,");
+setkey ("next_buffer (1)", "^X.");
 
 % %% ====================================
-% autoload("get_word", "txtutils");
-% define search_current_word(direction)
-% {
-%     variable word;
-%     variable mark;
-%     variable result;
-%     variable s1;
-%     mark = create_user_mark();
-%     skip_word();
-%     bskip_word();
-%     word = get_word();
-%     if (direction == 1)
-%     {
-%         while (1)
-%         {
-%             go_right_1();
-%             result = fsearch(word);
-%             if (result == 0)
-%             {
-%                 break;
-%             }
-%             % Search again if the word is a substring of a longer word.
-%             s1 = get_word();
-%             !if (strcmp(s1, word))
-%             {
-%                 break;
-%             }
-%         }
-%     }
-%     else
-%     {
-%         while (1)
-%         {
-%             result = bsearch(word);
-%             if (result == 0)
-%             {
-%                 break;
-%             }
-%             % Search again if the word is a substring of a longer word.
-%             s1 = get_word();
-%             !if (strcmp(s1, word))
-%             {
-%                 break;
-%             }
-%         }
-%     }
-%     if (result == 0)
-%     {
-%         goto_user_mark(mark);
-%         message(word + " not found");
-%     }
-% }
+autoload("get_word", "txtutils");
+define search_current_word(direction)
+{
+    variable word;
+    variable mark;
+    variable result;
+    variable s1;
+    mark = create_user_mark();
+    skip_word();
+    bskip_word();
+    word = get_word();
+    if (direction == 1)
+    {
+        while (1)
+        {
+            go_right_1();
+            result = fsearch(word);
+            if (result == 0)
+            {
+                break;
+            }
+            % Search again if the word is a substring of a longer word.
+            s1 = get_word();
+            !if (strcmp(s1, word))
+            {
+                break;
+            }
+        }
+    }
+    else
+    {
+        while (1)
+        {
+            result = bsearch(word);
+            if (result == 0)
+            {
+                break;
+            }
+            % Search again if the word is a substring of a longer word.
+            s1 = get_word();
+            !if (strcmp(s1, word))
+            {
+                break;
+            }
+        }
+    }
+    if (result == 0)
+    {
+        goto_user_mark(mark);
+        message(word + " not found");
+    }
+}
 
-% % Bind to Alt-z+Alt-comma (alt-z then alt-comma) and Alt-z+Alt-period.
-% setkey ("search_current_word(-1)", "\e&");
-% setkey ("search_current_word(1)", "\e*");
+% Bind to Alt-z+Alt-comma (alt-z then alt-comma) and Alt-z+Alt-period.
+setkey ("search_current_word(-1)", "\e&");
+setkey ("search_current_word(1)", "\e*");
 % define_word("_A-Za-z0-9");
 
 % %% ====================================
-% autoload("yp_copy_region_as_kill", "yankpop");
-% autoload("mark_word", "txtutils");
+autoload("yp_copy_region_as_kill", "yankpop");
+autoload("mark_word", "txtutils");
 
-% define copy_word_as_kill()
-% {
-%     variable s1;
-%     push_spot();
-%     mark_word();
-%     () = dupmark();
-%     s1 = bufsubstr();
-%     yp_copy_region_as_kill();
-%     pop_spot();
-%     message("\"" + s1 + "\" copied to kill ring");
-% }
+define copy_word_as_kill()
+{
+    variable s1;
+    push_spot();
+    mark_word();
+    () = dupmark();
+    s1 = bufsubstr();
+    yp_copy_region_as_kill();
+    pop_spot();
+    message("\"" + s1 + "\" copied to kill ring");
+}
 
-% define copy_line_as_kill()
-% {
-%     variable s1;
-%     push_spot();
-%     bol();
-%     set_mark_cmd();
-%     down(1);
-%     yp_copy_region_as_kill();
-%     pop_spot();
-%     message("line copied to kill ring");
-% }
+define copy_line_as_kill()
+{
+    variable s1;
+    push_spot();
+    bol();
+    set_mark_cmd();
+    down(1);
+    yp_copy_region_as_kill();
+    pop_spot();
+    message("line copied to kill ring");
+}
 
-% define duplicate_line()
-% {
-%     variable col;
-%     push_spot();
-%     col = what_column();
-%     bol();
-%     push_mark();
-%     down_1();
-%     yp_copy_region_as_kill();
-%     yp_yank();
-%     pop_spot();
-%     down_1();
-%     goto_column(col);
-% }
+define duplicate_line()
+{
+    variable col;
+    push_spot();
+    col = what_column();
+    bol();
+    push_mark();
+    down_1();
+    yp_copy_region_as_kill();
+    yp_yank();
+    pop_spot();
+    down_1();
+    goto_column(col);
+}
 
 % unsetkey("\ec");
-% setkey ("copy_word_as_kill()", "\ecw");
-% setkey ("copy_line_as_kill()", "\ecl");
-% setkey("duplicate_line", "\ecd");
+setkey ("copy_word_as_kill()", "^cw");
+setkey ("copy_line_as_kill()", "^cl");
+setkey("duplicate_line", "^cd");
 
 %% ====================================
 %% Highlight trailing whitespace
@@ -541,7 +543,8 @@ add_to_hook("_jed_save_buffer_before_hooks", &trim_trailing_whitespace);
 %---------------------------------------------------------------------------
 % Ctags config
 %---------------------------------------------------------------------------
-setkey("ctags_find", "^X;");
+unsetkey("^X=");
+%setkey("ctags_find", "^X;");
 setkey("ctags_backward", "^X-");
 setkey("ctags_forward", "^X=");
 
