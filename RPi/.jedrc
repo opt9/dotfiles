@@ -392,7 +392,7 @@ define next_buffer (previous)
 % % Bind Alt-. and Alt-, (Meta-period and Meta-comma) to next_buffer().
 % setkey ("next_buffer (0)", "\eq");
 % setkey ("next_buffer (1)", "\ea");
-% Bind Ctrl- and Ctrl-] to next_buffer().
+% Bind Ctrl-X, and Ctrl-X. to next_buffer().
 setkey ("next_buffer (0)", "^X,");
 setkey ("next_buffer (1)", "^X.");
 
@@ -450,7 +450,8 @@ define search_current_word(direction)
     }
 }
 
-% Bind to Alt-z+Alt-comma (alt-z then alt-comma) and Alt-z+Alt-period.
+% % Bind to Alt-z+Alt-comma (alt-z then alt-comma) and Alt-z+Alt-period.
+% Bind to Alt-& and Alt-*
 setkey ("search_current_word(-1)", "\e&");
 setkey ("search_current_word(1)", "\e*");
 % define_word("_A-Za-z0-9");
@@ -556,3 +557,6 @@ add_mode_for_extension("sh", "bash_aliases");
 add_mode_for_extension("sh", "bash_functions");
 add_mode_for_extension("sh", "bashrc");
 add_mode_for_extension("sh", "bash_logout");
+
+% Bind to F9
+setkey ("toggle_line_number_mode", "\e[20~");
