@@ -5,6 +5,6 @@ blink-matching-paren
 set-default-mode blink
 set-fill-column 72
 auto-indent-mode
-make-backup-files
+#make-backup-files
 
 auto-execute *.c c-mode
