@@ -393,9 +393,9 @@ you should place your code here."
         `((freenode
            (("opt9" . ,freenode-opt9-pass)))))
   ;; Org-mode config
-  (setq org-agenda-files (list "~/.org/agenda/work.org"
-                               "~/.org/agenda/home.org"
-                               "~/.org/agenda/idea.org"))
+  (setq org-agenda-files (list "~/.box/Org/agenda/work.org"
+                               "~/.box/Org/agenda/home.org"
+                               "~/.box/Org/agenda/idea.org"))
   ;; (setq org-export-backends '(ascii html icalendar latex odt))
   (setq org-export-backends '())
   ;; (setq org-export-with-toc nil)
