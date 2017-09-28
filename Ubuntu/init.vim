@@ -458,6 +458,13 @@ let g:gitgutter_sign_column_always = 0
 let g:EditorConfig_exclude_patterns = [ 'fugitive://.*', 'scp://.*' ]
 let g:EditorConfig_exec_path = '/usr/bin/editorconfig'
 
+" tslime config
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window = 1
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
+
 " {{{ bufferline config
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
