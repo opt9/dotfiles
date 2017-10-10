@@ -40,6 +40,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'jgdavey/tslime.vim'
   Plug 'janko-m/vim-test'
   Plug 'davidhalter/jedi-vim'
+  Plug 'mileszs/ack.vim'
 
   " function! DoRemote(arg)
     " UpdateRemotePlugins
@@ -469,6 +470,11 @@ let g:tslime_always_current_window = 1
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
+
+" Silver Searcher config
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " {{{ bufferline config
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
