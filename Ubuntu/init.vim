@@ -19,6 +19,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'python-mode/python-mode', { 'branch': 'develop', 'for': 'python' }
   Plug 'vim-ruby/vim-ruby'
   Plug 'thoughtbot/vim-rspec'
+  Plug 'alexbel/vim-rubygems'
   Plug 'Yggdroot/indentLine'
   " Plug 'ryanoasis/vim-devicons'
   Plug 'airblade/vim-gitgutter'
