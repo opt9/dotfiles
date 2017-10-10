@@ -2,6 +2,7 @@
 call plug#begin('~/.config/nvim/plugins')
   Plug 'arakashic/nvim-colors-solarized'
   Plug 'nightsense/willy'
+  Plug 'NLKNguyen/papercolor-theme'
   Plug 'neomake/neomake'
   Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-dispatch'
@@ -58,8 +59,9 @@ set errorbells
 set scrolloff=3   " Show 3 extra lines when scrolling up/down
 set cursorline    " Highlight the line where the cursor is
 set showbreak=↪
-colorscheme solarized
+" colorscheme solarized
 " colorscheme willy
+colorscheme PaperColor
 set background=dark
 set bg=dark
 " }}}
