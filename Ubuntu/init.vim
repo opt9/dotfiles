@@ -15,7 +15,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'mgee/lightline-bufferline',
   Plug 'sheerun/vim-polyglot'
   Plug 'editorconfig/editorconfig-vim'
-  Plug 'python-mode/python-mode'
+  Plug 'python-mode/python-mode', { 'branch': 'develop', 'for': 'python' }
   Plug 'vim-ruby/vim-ruby'
   Plug 'thoughtbot/vim-rspec'
   Plug 'Yggdroot/indentLine'
@@ -37,6 +37,8 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'diepm/vim-rest-console'
   Plug 'tpope/vim-fugitive'
   Plug 'jgdavey/tslime.vim'
+  Plug 'janko-m/vim-test'
+  Plug 'davidhalter/jedi-vim'
 
   " function! DoRemote(arg)
     " UpdateRemotePlugins
@@ -64,6 +66,7 @@ set bg=dark
 
 " {{{ Neomake options
 :highlight NeomakeSign guifg=Yellow guibg=#dc322f gui=bold
+let g:neomake_open_list = 2
 let g:neomake_warning_sign={'text': '•', 'texthl': 'NeomakeSign'}
 let g:neomake_error_sign={'text': '!', 'texthl': 'NeomakeSign'}
 " }}}
@@ -488,3 +491,9 @@ let vimrplugin_applescript = 0
 let vimrplugin_vsplit = 1
 " }}}
 
+" {{{ Python programming language config
+let g:neomake_python_enabled_makers = ['flake8']
+" E501 is line length of 80 characters
+let g:pymode_lint_ignore = "E2,E501"
+let g:neomake_python_flake8_maker = { 'args': ['--ignore=E501'], }
+" }}}
