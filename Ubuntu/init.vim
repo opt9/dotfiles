@@ -41,6 +41,13 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'janko-m/vim-test'
   Plug 'davidhalter/jedi-vim'
   Plug 'mileszs/ack.vim'
+  Plug 'KabbAmine/zeavim.vim', {'on': [
+                          \       'Zeavim', 'Docset',
+                          \       '<Plug>Zeavim',
+                          \       '<Plug>ZVVisSelection',
+                          \       '<Plug>ZVKeyDocset',
+                          \       '<Plug>ZVMotion'
+                          \    ]}
 
   " function! DoRemote(arg)
     " UpdateRemotePlugins
