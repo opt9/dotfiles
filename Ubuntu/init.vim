@@ -68,8 +68,8 @@ set errorbells
 set scrolloff=3   " Show 3 extra lines when scrolling up/down
 set cursorline    " Highlight the line where the cursor is
 set showbreak=↪
-" colorscheme solarized
-colorscheme neuromancer
+colorscheme solarized
+" colorscheme neuromancer
 " colorscheme PaperColor
 set background=dark
 set bg=dark
@@ -145,7 +145,7 @@ let g:lightline = {
       \ }
 
 let g:lightline#bufferline#show_number  = 2
-let g:lightline#bufferline#shorten_path = 0
+let g:lightline#bufferline#shorten_path = 1
 let g:lightline#bufferline#unnamed      = '[No Name]'
 let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
@@ -190,7 +190,7 @@ endfunction
 function! LightlineFilename()
   return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
        \ (&ft == 'fzf' ? 'FZF' :
-       \  '' != expand('%') ? pathshorten(expand('%')) : '[No Name]') .
+       \  '' != expand('%') ? expand('%') : '[No Name]') .
        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
 endfunction
 
