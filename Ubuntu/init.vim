@@ -497,6 +497,12 @@ nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " }}}
 
+" File extension mapping
+augroup filetypedetect
+    au BufRead,BufNewFile *.nse setfiletype lua
+    au BufRead,BufNewFile *.plugin set filetype=perl
+augroup END
+
 " {{{ Ruby programming language config
 "let g:rspec_command = "Dispatch rspec {spec}"
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
