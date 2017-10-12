@@ -49,6 +49,7 @@ call plug#begin('~/.config/nvim/plugins')
                           \       '<Plug>ZVKeyDocset',
                           \       '<Plug>ZVMotion'
                           \    ]}
+  Plug 'gregsexton/gitv'
 
   " function! DoRemote(arg)
     " UpdateRemotePlugins
