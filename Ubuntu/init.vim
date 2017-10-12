@@ -50,6 +50,7 @@ call plug#begin('~/.config/nvim/plugins')
                           \       '<Plug>ZVMotion'
                           \    ]}
   Plug 'gregsexton/gitv'
+  Plug 'sunaku/vim-dasht'
 
   " function! DoRemote(arg)
     " UpdateRemotePlugins
@@ -503,6 +504,25 @@ augroup filetypedetect
   au BufRead,BufNewFile *.nse setfiletype lua
   au BufRead,BufNewFile *.plugin set filetype=perl
 augroup END
+" }}}
+
+" {{{ Dash config
+  " Search docsets for something you type
+  nnoremap <Leader>k :Dasht<Space>
+  nnoremap <Leader><Leader>k :Dasht!<Space>
+  " Search docsets for words under cursor
+  nnoremap <silent> <Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')])<Return>
+  nnoremap <silent> <Leader><Leader>K :call Dasht([expand('<cword>'), expand('<cWORD>')], '!')<Return>
+  " Search docsets for your selected text
+  vnoremap <silent> <Leader>K y:<C-U>call Dasht(getreg(0))<Return>
+  vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
+" }}}
+
+" {{{ Dash Docsets config
+  " let g:dasht_filetype_docsets['elixir'] = ['erlang']
+  " let g:dasht_filetype_docsets['cpp'] = ['^c$', 'boost', 'OpenGL']
+  " let g:dasht_filetype_docsets['python'] = ['(num|sci)py', 'pandas']
+  " let g:dasht_filetype_docsets['html'] = ['css', 'js', 'bootstrap']
 " }}}
 
 " {{{ Ruby programming language config
