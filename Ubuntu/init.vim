@@ -70,9 +70,9 @@ set errorbells
 set scrolloff=3   " Show 3 extra lines when scrolling up/down
 set cursorline    " Highlight the line where the cursor is
 set showbreak=↪
-colorscheme solarized
+" colorscheme solarized
 " colorscheme neuromancer
-" colorscheme PaperColor
+colorscheme PaperColor
 set background=dark
 set bg=dark
 " }}}
@@ -398,12 +398,27 @@ if has("autocmd")
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
   augroup end
 
+  augroup Text
+    autocmd!
+
+    " Enable spell checking for text files
+    autocmd BufRead *.txt setlocal spell
+  augroup end
+
   augroup Markdown
     autocmd!
 
     " Enable spell checking for markdown files
     autocmd BufRead *.md setlocal spell
     autocmd BufRead *.markdown setlocal spell
+  augroup end
+
+  augroup Restructured
+    autocmd!
+
+    " Enable spell checking for reStructuredText files
+    autocmd BufRead *.rst syn spell toplevel
+    autocmd BufRead *.rst setlocal spell
   augroup end
 
   augroup Mkdir
