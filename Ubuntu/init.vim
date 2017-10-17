@@ -3,6 +3,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'arakashic/nvim-colors-solarized'
   Plug 'Zabanaa/neuromancer.vim'
   Plug 'NLKNguyen/papercolor-theme'
+  Plug 'AlessandroYorba/Sierra'
   Plug 'neomake/neomake'
   Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-dispatch'
@@ -70,11 +71,12 @@ set errorbells
 set scrolloff=3   " Show 3 extra lines when scrolling up/down
 set cursorline    " Highlight the line where the cursor is
 set showbreak=↪
+set background=dark
+set bg=dark
 " colorscheme solarized
 " colorscheme neuromancer
 colorscheme PaperColor
-set background=dark
-set bg=dark
+" colorscheme sierra
 " }}}
 
 " {{{ Neomake options
