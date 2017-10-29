@@ -77,6 +77,7 @@ set bg=dark
 " colorscheme neuromancer
 colorscheme PaperColor
 " colorscheme sierra
+" set relativenumber
 " }}}
 
 " {{{ Neomake options
