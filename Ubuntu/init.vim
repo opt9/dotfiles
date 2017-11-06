@@ -52,6 +52,9 @@ call plug#begin('~/.config/nvim/plugins')
                           \    ]}
   Plug 'gregsexton/gitv'
   Plug 'sunaku/vim-dasht'
+  Plug 'MorganPeterson/vim-elasticsearch'
+  Plug 'Rykka/riv.vim'
+  Plug 'Rykka/InstantRst'
 
   " function! DoRemote(arg)
     " UpdateRemotePlugins
@@ -77,7 +80,6 @@ set bg=dark
 " colorscheme neuromancer
 colorscheme PaperColor
 " colorscheme sierra
-" set relativenumber
 " }}}
 
 " {{{ Neomake options
@@ -556,6 +558,6 @@ let vimrplugin_vsplit = 1
 " {{{ Python programming language config
 let g:neomake_python_enabled_makers = ['flake8']
 " E501 is line length of 80 characters
-let g:pymode_lint_ignore = "E2,E501"
-let g:neomake_python_flake8_maker = { 'args': ['--ignore=E501'], }
+let g:pymode_lint_ignore = "W291,E2,E265,E266,E501"
+let g:neomake_python_flake8_maker = { 'args': ['--ignore=W291,E2,E265,E266,E501'], }
 " }}}
