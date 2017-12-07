@@ -1,0 +1,13 @@
+# Lua.
+language lua
+extension .lua .nse
+keyword and break do else elseif end false for function if
+keyword in local nil not or repeat return then true until while
+comment --
+comment --[[ ]]
+string "
+string '
+strnewline empty
+function (
+font parenthesis ( ) { }
+color parenthesis fixed red
