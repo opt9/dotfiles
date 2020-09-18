@@ -183,7 +183,7 @@ Case_Sensitive_Filenames = 0;
 
 %mute_set_mute_keys (" ^ ~ ' ` \d168 \d180 \"  ");  % choose all or subset
 
-META_CHAR	= -1;	% All chars with hi bit set will slf insert
+META_CHAR	= -1;	% All chars with hi bit set will self insert
 
 #ifdef IBMPC_SYSTEM
    DISPLAY_EIGHT_BIT = 128;
