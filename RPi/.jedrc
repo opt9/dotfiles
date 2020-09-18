@@ -96,7 +96,7 @@ if (BATCH == 0)
 % JED global variables  --- defaults shown
 %
 #ifdef VMS UNIX
-%USE_ANSI_COLORS = 1;   % if non-zero, JED will display colors on a color
+USE_ANSI_COLORS = 1;   % if non-zero, JED will display colors on a color
                         % terminal (Unix and VMS only) See doc/color.txt
                         % for more discussion and look below for setting
                         % the colors.
@@ -126,6 +126,7 @@ HORIZONTAL_PAN	= 20;	% if zero, no automatic panning.  If positive, only
   LINENUMBERS	= 1;	% the linenumber. A value greater than 1 will also
 #endif			% display column number information.  I recommend a
 			% value of 2 only at high baud rates
+LINENUMBERS = 2;    % show line numbers and column numbers on the status bar
 
 BLINK		= 1;	% if non zero, blink matching parenthesis
 TAB_DEFAULT	= 4;	% Tab size  (also try edit_tab_stops)
@@ -134,7 +135,6 @@ TAB         = 4;
 
 Tab_Always_Inserts_Tab = 1; % Set this to 1 if you want the tab key to insert
                             % tabs.
-_Jed_Default_Color_Scheme = "black3";
 WRAP_DEFAULT	= 78;	% wrap column
 ADD_NEWLINE	= 1;	% add newline to file when writing if one not present
 IGNORE_BEEP	= 3;	% Beep terminal during error messages---
@@ -191,14 +191,29 @@ META_CHAR	= -1;	% All chars with hi bit set will slf insert
    DISPLAY_EIGHT_BIT = 160; % Other systems assume ISO Latin 1
 #endif
 
+%---------------------------------------------------------------------------
+% Menu config
+%---------------------------------------------------------------------------
+menu_set_menu_bar_prefix ("Global", "");	% delete annoying 'F10 key ==> '
+
+%---------------------------------------------------------------------------
 % Color Settings
+%---------------------------------------------------------------------------
 % Look at jed/lib/colors/README for a description of predefined color
 % schemes.
+_Jed_Default_Color_Scheme = "black3";
 %set_color_scheme ("black3");
 %set_color_scheme ("blue2");
 set_color_scheme("amber");
 %set_color_scheme("green");
 set_color_scheme("yellow");
+
+%% ====================================
+%% Highlight trailing whitespace
+%% ====================================
+Highlight_Whitespace = 3;
+set_color ("tab", "default", "green");
+
 
 #ifdef UNIX
 %
@@ -223,7 +238,7 @@ if (0)
 
 %  Compiler interface --- uncomment one of the following:
 %
-% variable Compile_Default_Compiler = "gcc";           % GNU compiler
+variable Compile_Default_Compiler = "gcc";           % GNU compiler
 % variable Compile_Default_Compiler = "Ultrix_cc";     % cc on Ultrix
 % variable Compile_Default_Compiler = "bcc";           % Borlands BCC
 % variable Compile_Default_Compiler = "sun_acc";       % SunOS C++ and ACC
@@ -268,47 +283,6 @@ public define global_mode_hook (hook_name)
 {
     set_line_number_mode (1);
 }
-
-() = evalfile("emacs");
-enable_top_status_line(1);
-auto_compression_mode(1);
-setkey ("self_insert_cmd", "\t");
-LINENUMBERS = 2;    % show line numbers and column numbers on the status bar
-
-unsetkey("\ef");
-setkey("skip_word", "\ef");
-unsetkey("\eb");
-setkey("bskip_word", "\eb");
-unsetkey("\ee");
-setkey("eol_cmd", "\ee");
-unsetkey("\ea");
-setkey("beg_of_line", "\ea");
-% unsetkey("\ei");
-% unsetkey("\es");
-% unsetkey("\eu");
-% unsetkey("^H");
-% unsetkey("`");
-% setkey("self_insert_cmd", "`");
-
-
-unsetkey("^K");
-setkey("push_spot();bol();push_mark();down_1();yp_copy_region_as_kill();pop_spot();delete_line();", "^K");
-% %setkey("bol();if(eolp()==0)emacs_yp_kill_line();emacs_yp_kill_line();", "^K");
-unsetkey("^J");
-setkey("emacs_yp_kill_line();", "^J");
-% unsetkey("^V");
-% setkey("yp_yank();", "^V");
-% setkey("beg_of_line", "\eOH");
-% setkey("eol_cmd", "\eOF");
-
-
-
-% setkey("bufed()", "^Z");
-% setkey("dired()", "^X^Z");
-% setkey("smart_set_mark_cmd", "^Q");
-% setkey("one_window", "\el");
-
-
 
 define backspaces ()
 {
@@ -502,15 +476,10 @@ define duplicate_line()
 }
 
 % unsetkey("\ec");
+% setkey ("copy_word_as_kill()", "^cw");
 setkey ("copy_word_as_kill()", "^cw");
 setkey ("copy_line_as_kill()", "^cl");
 setkey("duplicate_line", "^cd");
-
-%% ====================================
-%% Highlight trailing whitespace
-%% ====================================
-Highlight_Whitespace = 3;
-set_color ("tab", "default", "green");
 
 %% ====================================
 %% Remove trailing whitespace
@@ -540,14 +509,55 @@ define trim_trailing_whitespace()
 add_to_hook("_jed_save_buffer_before_hooks", &trim_trailing_whitespace);
 
 
+%---------------------------------------------------------------------------
+% Keyboard config
+%---------------------------------------------------------------------------
+() = evalfile("emacs");
+% Bind to F9
+setkey ("toggle_line_number_mode", "\e[20~");
+enable_top_status_line(1);
+auto_compression_mode(1);
+setkey ("self_insert_cmd", "\t");
+
+unsetkey("\ef");
+setkey("skip_word", "\ef");
+unsetkey("\eb");
+setkey("bskip_word", "\eb");
+% unsetkey("\ee");
+% setkey("eol_cmd", "\ee");
+% unsetkey("\ea");
+% setkey("beg_of_line", "\ea");
+% unsetkey("\ei");
+% unsetkey("\es");
+% unsetkey("\eu");
+% unsetkey("^H");
+% unsetkey("`");
+% setkey("self_insert_cmd", "`");
+
+unsetkey("^K");
+setkey("push_spot();bol();push_mark();down_1();yp_copy_region_as_kill();pop_spot();delete_line();", "^K");
+% %setkey("bol();if(eolp()==0)emacs_yp_kill_line();emacs_yp_kill_line();", "^K");
+unsetkey("^J");
+setkey("emacs_yp_kill_line();", "^J");
+% unsetkey("^V");
+% setkey("yp_yank();", "^V");
+% setkey("beg_of_line", "\eOH");
+% setkey("eol_cmd", "\eOF");
+
+setkey("bufed()", "^Z");
+setkey("dired()", "^X^Z");
+% setkey("smart_set_mark_cmd", "^Q");
+% setkey("one_window", "\el");
+
 % Tab tweak
 %setkey("self_insert_cmd", "^I");
+
 
 %---------------------------------------------------------------------------
 % Ctags config
 %---------------------------------------------------------------------------
 unsetkey("^X=");
-%setkey("ctags_find", "^X;");
+% setkey("ctags_find", "^X;");
 setkey("ctags_backward", "^X-");
 setkey("ctags_forward", "^X=");
 
@@ -559,9 +569,3 @@ add_mode_for_extension("sh", "bash_aliases");
 add_mode_for_extension("sh", "bash_functions");
 add_mode_for_extension("sh", "bashrc");
 add_mode_for_extension("sh", "bash_logout");
-
-% Bind to F9
-setkey ("toggle_line_number_mode", "\e[20~");
-
-% Menu config
-menu_set_menu_bar_prefix ("Global", "");
