@@ -247,8 +247,16 @@ variable Compile_Default_Compiler = "gcc";           % GNU compiler
 variable W32shell_Perform_Globbing = 0;
 #endif
 
-%
+
+%---------------------------------------------------------------------------
+% Enable Emacs keybinding
+%---------------------------------------------------------------------------
+() = evalfile("emacs");
+
+
+%---------------------------------------------------------------------------
 %  Hooks:  read jed/doc/hooks.sl for more information
+%---------------------------------------------------------------------------
 %
 % public define global_mode_hook (hook_name)
 % {
@@ -476,7 +484,6 @@ define duplicate_line()
 }
 
 % unsetkey("\ec");
-% setkey ("copy_word_as_kill()", "^cw");
 setkey ("copy_word_as_kill()", "^cw");
 setkey ("copy_line_as_kill()", "^cl");
 setkey("duplicate_line", "^cd");
@@ -512,7 +519,6 @@ add_to_hook("_jed_save_buffer_before_hooks", &trim_trailing_whitespace);
 %---------------------------------------------------------------------------
 % Keyboard config
 %---------------------------------------------------------------------------
-() = evalfile("emacs");
 % Bind to F9
 setkey ("toggle_line_number_mode", "\e[20~");
 enable_top_status_line(1);
