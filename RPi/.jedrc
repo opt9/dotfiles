@@ -551,7 +551,9 @@ setkey("emacs_yp_kill_line();", "^J");
 % setkey("eol_cmd", "\eOF");
 
 setkey("bufed()", "^Z");
-setkey("dired()", "^X^Z");
+% setkey("dired()", "^X^Z");
+unsetkey("^X^F");
+setkey("dired()", "^X^F");
 % setkey("smart_set_mark_cmd", "^Q");
 % setkey("one_window", "\el");
 
