@@ -585,9 +585,9 @@ setkey("change_color_for_new_terminal", "^Xc");
 % Ctags config
 %---------------------------------------------------------------------------
 unsetkey("^X=");
-% setkey("ctags_find", "^X;");
-setkey("ctags_backward", "^X-");
-setkey("ctags_forward", "^X=");
+setkey("ctags_find", "^X=");
+setkey("ctags_backward", "^X[");
+setkey("ctags_forward", "^X]");
 
 % Add perl extension for Nikto
 add_mode_for_extension("perl", "plugin");
