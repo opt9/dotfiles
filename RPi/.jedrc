@@ -86,17 +86,17 @@ if (BATCH == 0)
 %---------------------------------------------------------------------------
 % User Information (used by some modes, automatically determined on Unix)
 %---------------------------------------------------------------------------
-% set_realname ("John Doe");
-% set_username ("jd");
-% set_hostname ("no.where.com");
-% set_emailaddress ("jd@no.where.com");
+set_realname ("Jeremy Bae");
+set_username ("jb");
+set_hostname ("ramen.mewmoe.xyz");
+set_emailaddress ("jb@ramen.mewmoe.xyz");
 
 
 %----------------------------------------------------------------------
 % JED global variables  --- defaults shown
 %
 #ifdef VMS UNIX
-USE_ANSI_COLORS = 1;   % if non-zero, JED will display colors on a color
+USE_ANSI_COLORS = 1;    % if non-zero, JED will display colors on a color
                         % terminal (Unix and VMS only) See doc/color.txt
                         % for more discussion and look below for setting
                         % the colors.
@@ -108,46 +108,47 @@ Startup_With_File = -1; % if greater then zero, force JED to prompt for a file
 DISPLAY_TIME    = 1;    % non-zero enables the time to be displayed on
                         %  status line, zero disables it.  If this value
                         %  is -1, 24 hour time will be used.
-HIGHLIGHT	= 1;	% non-zero for region highlighting
+HIGHLIGHT   = 1;        % non-zero for region highlighting
 WANT_SYNTAX_HIGHLIGHT = 1;
                         % Highlight syntax in C, Fortran, and TeX modes.
                         % See section on colors
                         %  below for choosing how to highlight.  On Unix and
                         %  VMS systems, USE_ANSI_COLORS must also be non-zero.
-HORIZONTAL_PAN	= 20;	% if zero, no automatic panning.  If positive, only
+HORIZONTAL_PAN  = 20;   % if zero, no automatic panning.  If positive, only
                         % the current line is panned.  If negative, pan window.
 #ifdef IBMPC_SYSTEM
   HORIZONTAL_PAN  = -1; % For msdos, panning window might be better:
 #endif
 
 #ifdef IBMPC_SYSTEM
-  LINENUMBERS	= 2;	% A value of zero means do NOT display line number on
+  LINENUMBERS   = 2;    % A value of zero means do NOT display line number on
 #else                   % status line line.  A value of 1, means to display
-  LINENUMBERS	= 1;	% the linenumber. A value greater than 1 will also
-#endif			% display column number information.  I recommend a
-			% value of 2 only at high baud rates
+  LINENUMBERS   = 1;    % the linenumber. A value greater than 1 will also
+#endif          % display column number information.  I recommend a
+                % value of 2 only at high baud rates
 LINENUMBERS = 2;    % show line numbers and column numbers on the status bar
 
-BLINK		= 1;	% if non zero, blink matching parenthesis
-TAB_DEFAULT	= 4;	% Tab size  (also try edit_tab_stops)
-USE_TABS	= 0;	% Use tabs when generating whitespace.
+BLINK       = 1;    % if non zero, blink matching parenthesis
+TAB_DEFAULT = 4;    % Tab size  (also try edit_tab_stops)
+USE_TABS    = 0;    % Use tabs when generating whitespace.
 TAB         = 4;
 
 Tab_Always_Inserts_Tab = 1; % Set this to 1 if you want the tab key to insert
                             % tabs.
-WRAP_DEFAULT	= 78;	% wrap column
-ADD_NEWLINE	= 1;	% add newline to file when writing if one not present
-IGNORE_BEEP	= 3;	% Beep terminal during error messages---
+
+WRAP_DEFAULT    = 78;   % wrap column
+ADD_NEWLINE = 1;    % add newline to file when writing if one not present
+IGNORE_BEEP = 3;    % Beep terminal during error messages---
                         %  1 == sound only, 2 = visible bell only, 3 = both
-_traceback	= 0;	% Non zero means dump traceback on S-Lang errors
-WRAP_INDENTS	= 1;	% Non zero indents next line after wrapping current.
-			%  Make this a 1 if you want indented text mode.
+_traceback  = 0;    % Non zero means dump traceback on S-Lang errors
+WRAP_INDENTS    = 1;    % Non zero indents next line after wrapping current.
+            %  Make this a 1 if you want indented text mode.
 CASE_SEARCH= 0;    % zero turns off case sensitivity for
                         % search functions, non-zero turns it on
 KILL_LINE_FEATURE = 0;
-			% If non-zero, kill line will kill through end of the
-			%  line if Point is at the beginning of the line. For
-			%  emacs-like behavior, set this to zero.
+            % If non-zero, kill line will kill through end of the
+            %  line if Point is at the beginning of the line. For
+            %  emacs-like behavior, set this to zero.
 REPLACE_PRESERVE_CASE = 1;  % If non-zero, replace operations will attempt to
                             % match the case of the replaced string.
 
@@ -183,7 +184,7 @@ Case_Sensitive_Filenames = 0;
 
 %mute_set_mute_keys (" ^ ~ ' ` \d168 \d180 \"  ");  % choose all or subset
 
-META_CHAR	= -1;	% All chars with hi bit set will self insert
+META_CHAR   = -1;   % All chars with hi bit set will self insert
 
 #ifdef IBMPC_SYSTEM
    DISPLAY_EIGHT_BIT = 128;
@@ -194,7 +195,7 @@ META_CHAR	= -1;	% All chars with hi bit set will self insert
 %---------------------------------------------------------------------------
 % Menu config
 %---------------------------------------------------------------------------
-menu_set_menu_bar_prefix ("Global", "");	% delete annoying 'F10 key ==> '
+menu_set_menu_bar_prefix ("Global", "");    % delete annoying 'F10 key ==> '
 
 %---------------------------------------------------------------------------
 % Color Settings
@@ -206,7 +207,7 @@ _Jed_Default_Color_Scheme = "black3";
 %set_color_scheme ("blue2");
 set_color_scheme("amber");
 %set_color_scheme("green");
-set_color_scheme("yellow");
+%set_color_scheme("yellow");
 
 %% ====================================
 %% Highlight trailing whitespace
@@ -298,10 +299,10 @@ define backspaces ()
     n = TAB_DEFAULT;
     loop (n) {
         n--;
-		if (what_column() - 1 > 0) call("backward_delete_char_untabify");
+        if (what_column() - 1 > 0) call("backward_delete_char_untabify");
     }
 }
-setkey ("backspaces()", "^?");
+% setkey ("backspaces()", "^?");
 
 define my_indent_region_or_line(dir)
 {
@@ -310,7 +311,7 @@ define my_indent_region_or_line(dir)
 
 
    !if(is_visible_mark())
-	 {
+     {
    bol_skip_white();
    col = what_column() - 1;
 
@@ -339,9 +340,9 @@ define my_indent_region_or_line(dir)
    go_up_1();
 }
 
-setkey ("my_indent_region_or_line(1)", "^I");
+% setkey ("my_indent_region_or_line(1)", "^I");
 % setkey ("my_indent_region_or_line(-1)", "^U");
-setkey ("my_indent_region_or_line(-1)", "\e[Z");
+% setkey ("my_indent_region_or_line(-1)", "\e[Z");
 % setkey("yp_kill_word", "\e[Z");
 % setkey ("insert_char('\t')", "\ei");
 % setkey ("my_indent_region_or_line(1)", "^]");
@@ -519,11 +520,13 @@ add_to_hook("_jed_save_buffer_before_hooks", &trim_trailing_whitespace);
 %---------------------------------------------------------------------------
 % Keyboard config
 %---------------------------------------------------------------------------
+% () = evalfile("emacs");
 % Bind to F9
 setkey ("toggle_line_number_mode", "\e[20~");
+setkey ("toggle_line_number_mode", "^Xz");
 enable_top_status_line(1);
 auto_compression_mode(1);
-setkey ("self_insert_cmd", "\t");
+% setkey ("self_insert_cmd", "\t");
 
 unsetkey("\ef");
 setkey("skip_word", "\ef");
@@ -547,18 +550,35 @@ unsetkey("^J");
 setkey("emacs_yp_kill_line();", "^J");
 % unsetkey("^V");
 % setkey("yp_yank();", "^V");
+setkey("yp_yank();", "^Xv");
 % setkey("beg_of_line", "\eOH");
 % setkey("eol_cmd", "\eOF");
 
-setkey("bufed()", "^Z");
+% setkey("bufed()", "^Z");
+setkey("bufed()", "^X^Z");
 % setkey("dired()", "^X^Z");
-unsetkey("^X^F");
-setkey("dired()", "^X^F");
-% setkey("smart_set_mark_cmd", "^Q");
+% unsetkey("^X^F");
+% setkey("dired()", "^X^F");
+setkey("smart_set_mark_cmd", "^Q");
 % setkey("one_window", "\el");
 
 % Tab tweak
 %setkey("self_insert_cmd", "^I");
+
+define change_color_for_old_terminal()
+{
+    set_color_scheme("amber-m");
+}
+
+define change_color_for_new_terminal()
+{
+    set_color_scheme("amber");
+}
+
+% setkey("change_color_for_old_terminal", "\e[23~");
+setkey("change_color_for_old_terminal", "^Xa");
+% setkey("change_color_for_new_terminal", "\e[24~");
+setkey("change_color_for_new_terminal", "^Xc");
 
 
 %---------------------------------------------------------------------------
