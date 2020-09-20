@@ -3,6 +3,10 @@
 if (BATCH == 0)
 {
 
+% help();               % Pops up a help window
+
+}  %Batch
+
 %%--------------------------------------------------------------------------
 %% JED global variables  --- defaults shown
 %%--------------------------------------------------------------------------
@@ -71,7 +75,7 @@ menu_set_menu_bar_prefix ("Global", "");    % delete annoying 'F10 key ==> '
 %% Color Settings
 %%--------------------------------------------------------------------------
 _Jed_Default_Color_Scheme = "black3";
-set_color_scheme("amber-m");
+set_color_scheme("amber");
 
 Highlight_Whitespace = 3;
 set_color ("tab", "default", "green");
@@ -178,11 +182,6 @@ add_mode_for_extension("sh", "bash_logout");
 c_set_style ("linux"); % or "linux", "gnu", "bsd", "k&r"
 
 variable Compile_Default_Compiler = "gcc";           % GNU compiler
-
-
-% help();               % Pops up a help window
-
-}  %Batch
 
 
 %%%-------------------------------------------------------------------------
